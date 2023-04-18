@@ -1,0 +1,76 @@
+//package assignss;
+import java.util.*;
+public class Area 
+{
+	public static void main(String[] args) 
+	{
+		Shape S;
+		Rectangle R = new Rectangle();
+		Triangle T = new Triangle();
+		Circle C = new Circle();
+		Square sq = new Square();
+		S = R;
+		S.inputVariables();
+		S.calculateArea();
+		S = T;
+		S.inputVariables();
+		S.calculateArea();
+		S = C;
+		S.inputVariables();
+		S.calculateArea();
+		S = sq;
+		S.inputVariables();
+		S.calculateArea();
+	}
+}
+abstract class Shape
+{
+	double val1 , val2;
+	abstract public void calculateArea();
+	Scanner input = new Scanner(System.in);
+	void inputVariables()
+	{
+		 System.out.println("enter value 1 : "); 
+		 val1 = input.nextDouble();
+		 System.out.println("enter value 2 : "); 
+		 val2 = input.nextDouble();
+	}
+}
+class Rectangle extends Shape
+{
+	public void calculateArea()
+	{
+		 System.out.println("area of rectangle = " + val1*val2); 
+	}
+}
+class Triangle extends Shape
+{
+	public void calculateArea()
+	{
+		 System.out.println("area of triangle = " + (val1*val2)/2); 
+	}
+}
+class Circle extends Shape
+{
+	public void inputVariables()
+	{
+		 System.out.println("enter value 1 : "); 
+		 val1 = input.nextDouble();
+	}
+	public void calculateArea()
+	{
+		 System.out.println("area of circle = " + 3.14*val1*val1); 
+	}
+}
+class Square extends Shape
+{
+	public void inputVariables()
+	{
+		 System.out.println("enter value 1 : "); 
+		 val1 = input.nextDouble();
+	}
+	public void calculateArea()
+	{
+		 System.out.println("area of square = " + val1*val1); 
+	}
+}
