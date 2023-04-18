@@ -1,0 +1,174 @@
+//package assignss;
+import java.util.Scanner;
+public class BookStore 
+{
+	public static void main(String[] args) 
+	{
+		Scanner input = new Scanner(System.in);
+		int ch;
+		Book bk = new Book();
+		Magazine mgz = new Magazine();
+		do
+		{
+			System.out.println("Menu ==>\n1.Books\n2.Magazines\n3.Total Sales\n0.Exit");
+			ch = input.nextInt();
+			if (ch == 1)
+			{
+				int num;
+				System.out.println("1.Add books\n2.Display books\n3.Order Copies\n4.Sell copies");
+				int choice = input.nextInt();
+				switch (choice)
+				{
+					case 1:
+						bk.readBook();
+						bk.display();
+					break;
+					case 2:
+						bk.displayBook();
+					break;
+					case 3:
+						System.out.println("Enter copies to order");
+						num = input.nextInt();
+						bk.orderCopies(num);
+					break;
+					case 4:
+						System.out.println("Enter copies to sell");
+						num = input.nextInt();
+						bk.sellCopies(num);
+						break;
+				}
+			}
+			else if (ch == 2)
+			{
+				int num;
+				System.out.println("1.Add latest issue \n2.Display magazine\n3.Sell copies");
+				int choice = input.nextInt();
+				switch (choice)
+				{
+					case 1:
+						System.out.println("Enter New Issue Date: ");
+						String date = input.next();
+						mgz.recieveIssue(date);
+					break;
+					case 2:
+						mgz.displayMag();
+					break;
+					case 3:
+						System.out.println("Enter copies to be sold");
+						num = input.nextInt();
+						mgz.sellCopies(num);
+					break;
+				}
+			}
+			else if (ch == 3)
+			{
+				System.out.println("Total Sale in publication is " + (bk.getTotal() + mgz.getTotal()));
+			}
+		} while(ch != 0 );
+	}
+}
+class Publication
+{
+	Scanner in = new Scanner(System.in);
+	private String title;
+	private int price;
+	private int copies;
+	private int total = 0;
+	int getCopies()
+	{
+		return copies;
+	}
+	void setCopies(int copies)
+	{
+		this.copies = copies;
+	}
+	int getPrice()
+	{
+		return price;
+	}
+	void setPrice(int price)
+	{
+		this.price = price;
+	}
+	String getTitle()
+	{
+		return title;
+	}
+	void setTitle(String title)
+	{
+		this.title = title;
+	}
+	int getTotal()
+	{
+		return total;
+	}
+	void readPublication()
+	{
+		System.out.println("Enter Title: ");
+		this.title = in.next();
+		System.out.println("Enter Copies: ");
+		this.copies = in.nextInt();
+		System.out.println("Enter Price: ");
+		this.price = in.nextInt();
+	}
+	void display()
+	{
+		System.out.println("Title\t Price\t Copies\t");
+		System.out.println(getTitle() + "\t" + getPrice() + "\t" + getCopies());
+	}
+	void sellCopies(int num)
+	{
+		if (num > copies)
+		{
+			System.out.println("Insufficient Stock");
+		}
+		else
+		{
+			copies = copies - num;
+			total += (num * price);
+			System.out.println("Cost of purchase is : " + (num * price));
+		}
+	}
+}
+class Book extends Publication
+{
+	private String author;
+	void readBook()
+	{
+		readPublication();
+		System.out.println("Enter Author name: ");
+		author = in.next();
+	}
+	void displayBook()
+	{
+		display();
+		System.out.println("Author\t ");
+		System.out.println(author);
+	}
+	void orderCopies(int cpy)
+	{
+		int x = getCopies() + cpy;
+		setCopies(x);
+		System.out.println("Copies ordered");
+	}
+}
+class Magazine extends Publication
+{
+	private int orderQty;
+	private String issueDate;
+	void recieveIssue(String issueDate)
+	{
+		readPublication();
+		orderQty = getCopies();
+		setCopies(orderQty);
+		this.issueDate = issueDate;
+		System.out.println("Copies ordered");
+	}
+	void displayMag()
+	{
+		System.out.println("Enter The Current Issue Date [dd/mm/yyyy]");
+		issueDate = in.next();
+		display();
+		System.out.println("Issue date\n" + issueDate);
+	}
+}
