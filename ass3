@@ -1,0 +1,65 @@
+// package assigns;
+import java.util.Scanner;
+class Weather
+{
+	int day;
+	float highTemp, lowTemp, rainAmt, snowAmt;
+	public Weather() 
+	{
+		day = 0;
+		highTemp = 0;
+		lowTemp = 0;
+		rainAmt = 0;
+		snowAmt = 0;
+	}
+	public Weather(int day, float highTemp, float lowTemp, float rainAmt, float snowAmt)
+	{
+		this.day = day;
+		this.highTemp = highTemp;
+		this.lowTemp = lowTemp;
+		this.rainAmt = rainAmt;
+		this.snowAmt = snowAmt;
+	}                                 
+	public void getData() 
+	{
+		Scanner input = new Scanner (System.in);
+		System.out.print("enter the day: \n");
+		day = input.nextInt();
+		System.out.print("enter the high temp: \n");
+		highTemp = input.nextFloat();
+		System.out.print("enter the low temp: \n");
+		lowTemp = input.nextFloat();
+		System.out.print("enter the amount of rain: \n");
+		rainAmt = input.nextFloat();
+		System.out.print("enter the amount of snow: \n");
+		snowAmt = input.nextFloat();
+	}
+}
+public class WeatherReport 
+{
+	public static void main(String[] args) 
+	{
+		int n , i;
+		float highTemp = 0 , lowTemp = 0 , rainAmt = 0 , snowAmt = 0;
+		System.out.print("enter total number of days: \n");
+			Scanner input = new Scanner (System.in);
+			n = input.nextInt();
+			Weather [] w = new Weather [n];
+			for(i = 0 ; i < n ; i++) 
+			{
+				w[i] = new Weather();
+				w[i].getData();
+			}
+			for(i = 0 ; i < n ; i++) 
+			{
+				lowTemp = (lowTemp + w[i].lowTemp);
+				highTemp = (highTemp + w[i].highTemp);
+				rainAmt = (rainAmt + w[i].rainAmt);
+				snowAmt = (snowAmt + w[i].snowAmt);
+			}
+			System.out.println("average high temperature: " + highTemp/n);
+			System.out.println("average low temperature: " + lowTemp/n);
+			System.out.println("average amount of rain: " + rainAmt/n);
+			System.out.println("average amount of snow: " + snowAmt/n);	
+	}
+}
